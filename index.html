@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Å lære med maskiner!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rust:    #B85042;
+    --sand:    #E7E8D1;
+    --olive:   #8B9B6E;
+    --brown:   #A0785A;
+    --charcoal:#2C2C2C;
+    --cream:   #F5F2EC;
+    --muted:   #7A7060;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--charcoal);
+    color: white;
+    padding: 5rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(184,80,66,.35) 0%, transparent 60%),
+                radial-gradient(ellipse at 10% 80%, rgba(139,155,110,.25) 0%, transparent 55%);
+  }
+  .hero-inner {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 1.5rem;
+    opacity: .8;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1.08;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: #e8a090;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,.72);
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+  }
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 99px;
+    padding: .35rem .9rem;
+    font-size: .82rem;
+    color: var(--sand);
+  }
+  .pill span { font-size: 1rem; }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
+    max-width: 900px;
+    margin: 3rem auto .8rem;
+    padding: 0 1.5rem;
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--muted);
+    display: flex; align-items: center; gap: .7rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(0,0,0,.1);
+  }
+
+  /* ── CARD GRID ── */
+  .grid {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    background: white;
+    border-radius: 14px;
+    padding: 1.4rem 1.5rem 1.6rem;
+    text-decoration: none;
+    color: inherit;
+    border: 1.5px solid transparent;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    display: flex; flex-direction: column; gap: .5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    cursor: pointer;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,0,0,.1);
+    border-color: var(--rust);
+  }
+
+  .card-num {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    line-height: 1.3;
+    color: var(--charcoal);
+  }
+  .card-desc {
+    font-size: .82rem;
+    color: var(--muted);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .card-arrow {
+    align-self: flex-end;
+    font-size: 1.1rem;
+    color: var(--rust);
+    transition: transform .2s;
+  }
+  .card:hover .card-arrow { transform: translateX(4px); }
+
+  /* accent colours per section */
+  .card[data-sec="0"]:hover { border-color: var(--rust); }
+  .card[data-sec="1"]:hover { border-color: var(--brown); }
+  .card[data-sec="2"]:hover { border-color: var(--olive); }
+  .card[data-sec="3"]:hover { border-color: #5a7a5a; }
+
+  .card-icon {
+    font-size: 1.4rem;
+    margin-bottom: .2rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: .78rem;
+    color: var(--muted);
+    border-top: 1px solid rgba(0,0,0,.07);
+  }
+
+  @media(max-width:500px){
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Tverrfaglig prosjekt · Norsk og naturfag</div>
+    <h1>Å lære med <em>maskiner!</em></h1>
+    <p class="hero-sub">Dere skal lage en podcast om bioteknologi for ungdomsskoleelever – med fagkunnskap, retorikk og KI som støtte.</p>
+    <div class="hero-pills">
+      <div class="pill"><span>🎙️</span> Podcast</div>
+      <div class="pill"><span>🧬</span> Bioteknologi</div>
+      <div class="pill"><span>🤖</span> Fire KI-agenter</div>
+      <div class="pill"><span>📝</span> Prosesslogger</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">Introduksjon</div>
+<div class="grid">
+  <a class="card" href="01_forskningsprosjekt.html" data-sec="0">
+    <div class="card-icon">🔬</div>
+    <div class="card-num">01</div>
+    <div class="card-title">Forskningsprosjektet</div>
+    <div class="card-desc">Forskningsspørsmål, datamateriale og hva loggene brukes til.</div>
+    <div class="card-arrow">→</div>
+  </a>
+  <a class="card" href="02_oversikt.html" data-sec="0">
+    <div class="card-icon">🗺️</div>
+    <div class="card-num">02</div>
+    <div class="card-title">Hva dere skal gjøre</div>
+    <div class="card-desc">Podcast, gruppearbeid, KI-agenter og prosesslogger – en rask oversikt.</div>
+    <div class="card-arrow">→</div>
+  </a>
+  <a class="card" href="03_podcast.html" data-sec="0">
+    <div class="card-icon">🎙️</div>
+    <div class="card-num">03</div>
+    <div class="card-title">Podcastoppgaven</div>
+    <div class="card-desc">Dere skal lage en podcast rettet mot ungdomsskoleelever.</div>
+    <div class="card-arrow">→</div>
+  </a>
+  <a class="card" href="04_kompetansemaal.html" data-sec="0">
+    <div class="card-icon">🎯</div>
+    <div class="card-num">04</div>
+    <div class="card-title">Kompetansemål</div>
+    <div class="card-desc">Forstå bioteknologi, drøfte etikk, formidle fag og bruke kilder kritisk.</div>
+    <div class="card-arrow">→</div>
+  </a>
+</div>
+
+<div class="section-label">KI-agentene</div>
+<div class="grid">
+  <a class="card" href="05_agenter.html" data-sec="1">
+    <div class="card-icon">🤖</div>
+    <div class="card-num">05</div>
+    <div class="card-title">Hvor finner dere agentene?</div>
+    <div class="card-desc">ki.bvgs.no – Prateroboter og verksted til elever.</div>
+    <div class="card-arrow">→</div>
+  </a>
+  <a class="card" href="06_fire_agenter.html" data-sec="1">
+    <div class="card-icon">⚙️</div>
+    <div class="card-num">06</div>
+    <div class="card-title">De fire KI-agentene</div>
+    <div class="card-desc">Del 1–4: jobbe inn i oppgaven, lære og sortere, gjennomføre, reflektere.</div>
+    <div class="card-arrow">→</div>
+  </a>
+</div>
+
+<div class="section-label">Fasene</div>
+<div class="grid">
+  <a class="card" href="07_fase1.html" data-sec="2">
+    <div class="card-icon">🔍</div>
+    <div class="card-num">07</div>
+    <div class="card-title">Fase 1: Utforske tema</div>
+    <div class="card-desc">Forstå oppgaveteksten, utforsk fagstoff, diskuter etiske spørsmål.</div>
+    <div class="card-arrow">→</div>
+  </a>
+  <a class="card" href="08_fase2.html" data-sec="2">
+    <div class="card-icon">✍️</div>
+    <div class="card-num">08</div>
+    <div class="card-title">Fase 2: Idé og manus</div>
+    <div class="card-desc">Fagbegreper, mottakerbevissthet og struktur for episoden.</div>
+    <div class="card-arrow">→</div>
+  </a>
+  <a class="card" href="09_fase3.html" data-sec="2">
+    <div class="card-icon">🎚️</div>
+    <div class="card-num">09</div>
+    <div class="card-title">Fase 3: Produksjon</div>
+    <div class="card-desc">Øving, opptak, gjennomlytting og ferdigstilling av podcasten.</div>
+    <div class="card-arrow">→</div>
+  </a>
+  <a class="card" href="10_fase4.html" data-sec="2">
+    <div class="card-icon">💭</div>
+    <div class="card-num">10</div>
+    <div class="card-title">Fase 4: Refleksjon</div>
+    <div class="card-desc">Se tilbake – hva lærte dere? Bioteknologi, retorikk, samarbeid og KI.</div>
+    <div class="card-arrow">→</div>
+  </a>
+</div>
+
+<div class="section-label">Verktøy og tips</div>
+<div class="grid">
+  <a class="card" href="11_ki_i_prosjektet.html" data-sec="3">
+    <div class="card-icon">💡</div>
+    <div class="card-num">11</div>
+    <div class="card-title">Bruk av KI i prosjektet</div>
+    <div class="card-desc">KI hjelper dere – men dere må alltid tenke kritisk.</div>
+    <div class="card-arrow">→</div>
+  </a>
+  <a class="card" href="12_prosesslogg.html" data-sec="3">
+    <div class="card-icon">📋</div>
+    <div class="card-num">12</div>
+    <div class="card-title">Prosesslogg</div>
+    <div class="card-desc">Gruppe- og individuell refleksjon i Forms etter hver økt og fase.</div>
+    <div class="card-arrow">→</div>
+  </a>
+  <a class="card" href="13_oversikt.html" data-sec="3">
+    <div class="card-icon">📊</div>
+    <div class="card-num">13</div>
+    <div class="card-title">Oversikt over arbeidsformene</div>
+    <div class="card-desc">Naturfag, norsk, samarbeid og kritisk KI-bruk – hva gjør dere når?</div>
+    <div class="card-arrow">→</div>
+  </a>
+  <a class="card" href="14_tips.html" data-sec="3">
+    <div class="card-icon">🌟</div>
+    <div class="card-num">14</div>
+    <div class="card-title">Tips og lykke til!</div>
+    <div class="card-desc">Snakk sammen, bruk egne ord, still spørsmål – lykke til!</div>
+    <div class="card-arrow">→</div>
+  </a>
+</div>
+
+<footer>Å lære med maskiner · Et tverrfaglig prosjekt i norsk og naturfag</footer>
+</body>
+</html>
