@@ -3,320 +3,204 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Å lære med maskiner!</title>
+<title>Å lære med maskiner – Konferansepresentasjon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --rust:    #B85042;
-    --sand:    #E7E8D1;
-    --olive:   #8B9B6E;
-    --brown:   #A0785A;
-    --charcoal:#2C2C2C;
-    --cream:   #F5F2EC;
-    --muted:   #7A7060;
-  }
+  :root { --rust:#B85042; --sand:#E7E8D1; --olive:#8B9B6E; --brown:#A0785A; --charcoal:#2C2C2C; --cream:#F5F2EC; --muted:#7A7060; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--charcoal);min-height:100vh;}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  .hero{background:var(--charcoal);color:white;padding:5rem 2rem 4rem;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(184,80,66,.35) 0%,transparent 60%),radial-gradient(ellipse at 10% 80%,rgba(139,155,110,.25) 0%,transparent 55%);}
+  .hero-inner{position:relative;max-width:960px;margin:0 auto;}
+  .hero-tag{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sand);margin-bottom:1.2rem;opacity:.8;}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.08;margin-bottom:1rem;}
+  .hero h1 em{font-style:italic;color:#e8a090;}
+  .hero-sub{font-size:1.05rem;color:rgba(255,255,255,.72);max-width:600px;line-height:1.65;margin-bottom:1.8rem;}
+  .hero-pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem;}
+  .pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:.35rem .9rem;font-size:.82rem;color:var(--sand);}
+  .pill svg{flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--charcoal);
-    min-height: 100vh;
-  }
+  /* timing bar */
+  .timing-bar{display:flex;max-width:960px;margin:0 auto 0;background:rgba(255,255,255,.06);border-radius:12px;overflow:hidden;}
+  .timing-seg{flex:1;padding:.7rem 1rem;text-align:center;font-size:.72rem;color:rgba(255,255,255,.7);border-right:1px solid rgba(255,255,255,.1);}
+  .timing-seg:last-child{border-right:none;}
+  .timing-seg strong{display:block;font-size:.9rem;color:white;margin-bottom:.1rem;}
 
-  /* ── HERO ── */
-  .hero {
-    background: var(--charcoal);
-    color: white;
-    padding: 5rem 2rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(184,80,66,.35) 0%, transparent 60%),
-                radial-gradient(ellipse at 10% 80%, rgba(139,155,110,.25) 0%, transparent 55%);
-  }
-  .hero-inner {
-    position: relative;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-  .hero-tag {
-    display: inline-block;
-    font-size: .75rem;
-    font-weight: 600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--sand);
-    margin-bottom: 1.5rem;
-    opacity: .8;
-  }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(2.6rem, 6vw, 4.4rem);
-    line-height: 1.08;
-    margin-bottom: 1.2rem;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: #e8a090;
-  }
-  .hero-sub {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,.72);
-    max-width: 520px;
-    line-height: 1.65;
-    margin-bottom: 2.5rem;
-  }
-  .hero-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .6rem;
-  }
-  .pill {
-    display: inline-flex; align-items: center; gap: .4rem;
-    background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,255,255,.18);
-    border-radius: 99px;
-    padding: .35rem .9rem;
-    font-size: .82rem;
-    color: var(--sand);
-  }
-  .pill span { font-size: 1rem; }
+  .section-label{max-width:1060px;margin:3rem auto .8rem;padding:0 1.5rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:.7rem;}
+  .section-label::after{content:'';flex:1;height:1px;background:rgba(0,0,0,.1);}
 
-  /* ── SECTION LABELS ── */
-  .section-label {
-    max-width: 900px;
-    margin: 3rem auto .8rem;
-    padding: 0 1.5rem;
-    font-size: .72rem;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--muted);
-    display: flex; align-items: center; gap: .7rem;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(0,0,0,.1);
-  }
+  .grid{max-width:1060px;margin:0 auto;padding:0 1.5rem 1rem;display:grid;gap:1rem;}
+  .grid.g2{grid-template-columns:repeat(2,1fr);max-width:700px;}
+  .grid.g3{grid-template-columns:repeat(3,1fr);max-width:900px;}
+  .grid.g4{grid-template-columns:repeat(4,1fr);}
+  .grid.g1{grid-template-columns:1fr;max-width:380px;}
 
-  /* ── CARD GRID ── */
-  .grid {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 1.5rem 4rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1rem;
-  }
+  .card{background:white;border-radius:14px;padding:1.3rem 1.4rem 1.5rem;text-decoration:none;color:inherit;border:1.5px solid transparent;transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column;gap:.4rem;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+  .card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.1);border-color:var(--rust);}
+  .card.brown:hover{border-color:var(--brown);}
+  .card.olive:hover{border-color:var(--olive);}
+  .card.dark:hover{border-color:var(--charcoal);}
+  .card-icon{width:24px;height:24px;color:var(--rust);}
+  .card.brown .card-icon{color:var(--brown);}
+  .card.olive .card-icon{color:var(--olive);}
+  .card.dark .card-icon{color:var(--charcoal);}
+  .card-icon svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+  .card-num{font-size:.68rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+  .card-title{font-family:'DM Serif Display',serif;font-size:1.05rem;line-height:1.25;color:var(--charcoal);}
+  .card-desc{font-size:.8rem;color:var(--muted);line-height:1.55;flex:1;}
+  .card-arrow{align-self:flex-end;font-size:.95rem;color:var(--rust);transition:transform .2s;}
+  .card.brown .card-arrow{color:var(--brown);}
+  .card.olive .card-arrow{color:var(--olive);}
+  .card:hover .card-arrow{transform:translateX(4px);}
 
-  .card {
-    background: white;
-    border-radius: 14px;
-    padding: 1.4rem 1.5rem 1.6rem;
-    text-decoration: none;
-    color: inherit;
-    border: 1.5px solid transparent;
-    transition: transform .2s, box-shadow .2s, border-color .2s;
-    display: flex; flex-direction: column; gap: .5rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,.05);
-    cursor: pointer;
-  }
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(0,0,0,.1);
-    border-color: var(--rust);
-  }
+  footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--muted);border-top:1px solid rgba(0,0,0,.07);margin-top:2rem;}
 
-  .card-num {
-    font-size: .72rem;
-    font-weight: 700;
-    letter-spacing: .1em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-  .card-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.15rem;
-    line-height: 1.3;
-    color: var(--charcoal);
-  }
-  .card-desc {
-    font-size: .82rem;
-    color: var(--muted);
-    line-height: 1.55;
-    flex: 1;
-  }
-  .card-arrow {
-    align-self: flex-end;
-    font-size: 1.1rem;
-    color: var(--rust);
-    transition: transform .2s;
-  }
-  .card:hover .card-arrow { transform: translateX(4px); }
-
-  /* accent colours per section */
-  .card[data-sec="0"]:hover { border-color: var(--rust); }
-  .card[data-sec="1"]:hover { border-color: var(--brown); }
-  .card[data-sec="2"]:hover { border-color: var(--olive); }
-  .card[data-sec="3"]:hover { border-color: #5a7a5a; }
-
-  .card-icon {
-    font-size: 1.4rem;
-    margin-bottom: .2rem;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    text-align: center;
-    padding: 1.5rem;
-    font-size: .78rem;
-    color: var(--muted);
-    border-top: 1px solid rgba(0,0,0,.07);
-  }
-
-  @media(max-width:500px){
-    .grid { grid-template-columns: 1fr; }
-  }
+  @media(max-width:900px){.grid.g4{grid-template-columns:repeat(2,1fr);}.grid.g3{grid-template-columns:repeat(2,1fr);}.timing-bar{flex-wrap:wrap;}.timing-seg{min-width:50%;}}
+  @media(max-width:500px){.grid.g2,.grid.g3,.grid.g4,.grid.g1{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-tag">Tverrfaglig prosjekt · Norsk og naturfag</div>
-    <h1>Å lære med <em>maskiner!</em></h1>
-    <p class="hero-sub">Dere skal lage en podcast om bioteknologi for ungdomsskoleelever – med fagkunnskap, retorikk og KI som støtte.</p>
+    <div class="hero-tag">Game-Up · NTNU · Lærere · Mai 2026</div>
+    <h1>Å lære med <em>maskiner</em></h1>
+    <p class="hero-sub">Tre år med et tverrfaglig KI-prosjekt i videregående skole – hva skjer med læring, eierskap og danning når elever ikke kan ta snarvei til svaret?</p>
     <div class="hero-pills">
-      <div class="pill"><span>🎙️</span> Podcast</div>
-      <div class="pill"><span>🧬</span> Bioteknologi</div>
-      <div class="pill"><span>🤖</span> Fire KI-agenter</div>
-      <div class="pill"><span>📝</span> Prosesslogger</div>
+      <div class="pill"><svg width="13" height="13" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Mari-Ann Letnes · NTNU</div>
+      <div class="pill"><svg width="13" height="13" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 12h3M14 12h3"/></svg>3 runder · PDBR</div>
+      <div class="pill"><svg width="13" height="13" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>Podcast · Bioteknologi · Vg1</div>
+      <div class="pill"><svg width="13" height="13" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>Fire KI-agenter</div>
+    </div>
+
+    <div class="timing-bar">
+      <div class="timing-seg"><strong>2 min</strong>Åpning</div>
+      <div class="timing-seg"><strong>5 min</strong>Hvorfor</div>
+      <div class="timing-seg"><strong>8 min</strong>Hvordan</div>
+      <div class="timing-seg"><strong>5 min</strong>For deg</div>
+      <div class="timing-seg"><strong>5 min</strong>Spørsmål</div>
     </div>
   </div>
 </div>
 
-<div class="section-label">Introduksjon</div>
-<div class="grid">
-  <a class="card" href="01_forskningsprosjekt.html" data-sec="0">
-    <div class="card-icon">🔬</div>
+<!-- BAKGRUNN -->
+<div class="section-label">Bakgrunn – hvem er vi og hva har vi gjort</div>
+<div class="grid g3">
+  <a class="card" href="laere-med-maskiner/01_om_oss.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
     <div class="card-num">01</div>
-    <div class="card-title">Forskningsprosjektet</div>
-    <div class="card-desc">Forskningsspørsmål, datamateriale og hva loggene brukes til.</div>
+    <div class="card-title">Om oss og prosjektet</div>
+    <div class="card-desc">Mari-Ann Letnes, naturfaglæreren og Game-Up ved NTNU.</div>
     <div class="card-arrow">→</div>
   </a>
-  <a class="card" href="02_oversikt.html" data-sec="0">
-    <div class="card-icon">🗺️</div>
+  <a class="card brown" href="laere-med-maskiner/02_longitudinelt.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 12h3M14 12h3"/></svg></div>
     <div class="card-num">02</div>
-    <div class="card-title">Hva dere skal gjøre</div>
-    <div class="card-desc">Podcast, gruppearbeid, KI-agenter og prosesslogger – en rask oversikt.</div>
+    <div class="card-title">Tre runder – ett prosjekt</div>
+    <div class="card-desc">Iterativt og longitudinelt: hva vi lærte fra år til år.</div>
     <div class="card-arrow">→</div>
   </a>
-  <a class="card" href="03_podcast.html" data-sec="0">
-    <div class="card-icon">🎙️</div>
+  <a class="card olive" href="laere-med-maskiner/02b_forskningsdesign.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+    <div class="card-num">02b</div>
+    <div class="card-title">Forskningsdesign</div>
+    <div class="card-desc">PDBR, forskningsspørsmål og datamateriale.</div>
+    <div class="card-arrow">→</div>
+  </a>
+</div>
+
+<!-- HVORFOR -->
+<div class="section-label">Hvorfor – kortslutningsproblemet og teorien bak</div>
+<div class="grid g2">
+  <a class="card" href="laere-med-maskiner/03_kortslutning.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
     <div class="card-num">03</div>
-    <div class="card-title">Podcastoppgaven</div>
-    <div class="card-desc">Dere skal lage en podcast rettet mot ungdomsskoleelever.</div>
+    <div class="card-title">Kortslutningsproblemet</div>
+    <div class="card-desc">Hvorfor stopper elever i materialdialogen – og hva koster det dem?</div>
     <div class="card-arrow">→</div>
   </a>
-  <a class="card" href="04_kompetansemaal.html" data-sec="0">
-    <div class="card-icon">🎯</div>
+  <a class="card brown" href="laere-med-maskiner/04_modellen.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
     <div class="card-num">04</div>
-    <div class="card-title">Kompetansemål</div>
-    <div class="card-desc">Forstå bioteknologi, drøfte etikk, formidle fag og bruke kilder kritisk.</div>
+    <div class="card-title">Den estetiske læreprosessen</div>
+    <div class="card-desc">Fremmedgjøring → Materialdialog → Meningsskaping → Tilbakekomst.</div>
     <div class="card-arrow">→</div>
   </a>
 </div>
 
-<div class="section-label">KI-agentene</div>
-<div class="grid">
-  <a class="card" href="05_agenter.html" data-sec="1">
-    <div class="card-icon">🤖</div>
+<!-- HVORDAN -->
+<div class="section-label">Hvordan – designet i praksis</div>
+<div class="grid g3">
+  <a class="card" href="laere-med-maskiner/05_fasene.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></div>
     <div class="card-num">05</div>
-    <div class="card-title">Hvor finner dere agentene?</div>
-    <div class="card-desc">ki.bvgs.no – Prateroboter og verksted til elever.</div>
+    <div class="card-title">Fire faser</div>
+    <div class="card-desc">Slik strukturerte vi arbeidet – klikk deg gjennom fasene med robot-bildene.</div>
     <div class="card-arrow">→</div>
   </a>
-  <a class="card" href="06_fire_agenter.html" data-sec="1">
-    <div class="card-icon">⚙️</div>
+  <a class="card brown" href="laere-med-maskiner/06_agenter.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><path d="M8 15h.01M12 15h.01M16 15h.01"/></svg></div>
     <div class="card-num">06</div>
-    <div class="card-title">De fire KI-agentene</div>
-    <div class="card-desc">Del 1–4: jobbe inn i oppgaven, lære og sortere, gjennomføre, reflektere.</div>
+    <div class="card-title">KI-agentene</div>
+    <div class="card-desc">Designet for å stille spørsmål, ikke gi svar. Tilgjengelige på ki.bvgs.no.</div>
     <div class="card-arrow">→</div>
   </a>
-</div>
-
-<div class="section-label">Fasene</div>
-<div class="grid">
-  <a class="card" href="07_fase1.html" data-sec="2">
-    <div class="card-icon">🔍</div>
+  <a class="card olive" href="laere-med-maskiner/07_logger.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
     <div class="card-num">07</div>
-    <div class="card-title">Fase 1: Utforske tema</div>
-    <div class="card-desc">Forstå oppgaveteksten, utforsk fagstoff, diskuter etiske spørsmål.</div>
+    <div class="card-title">Prosessloggene</div>
+    <div class="card-desc">Tilbakekomsten bygget inn i designet – gruppe og individuell.</div>
     <div class="card-arrow">→</div>
   </a>
-  <a class="card" href="08_fase2.html" data-sec="2">
-    <div class="card-icon">✍️</div>
+</div>
+
+<!-- FUNN -->
+<div class="section-label">Hva vi fant – funn fra tre runder</div>
+<div class="grid g3">
+  <a class="card" href="laere-med-maskiner/08_funn_runde1.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
     <div class="card-num">08</div>
-    <div class="card-title">Fase 2: Idé og manus</div>
-    <div class="card-desc">Fagbegreper, mottakerbevissthet og struktur for episoden.</div>
+    <div class="card-title">Hva elevene fortalte oss</div>
+    <div class="card-desc">Tre narrativer fra intervjuene i runde 1 – eierskap, dømmekraft og fellesskap.</div>
     <div class="card-arrow">→</div>
   </a>
-  <a class="card" href="09_fase3.html" data-sec="2">
-    <div class="card-icon">🎚️</div>
+  <a class="card brown" href="laere-med-maskiner/09_funn_runde2.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
     <div class="card-num">09</div>
-    <div class="card-title">Fase 3: Produksjon</div>
-    <div class="card-desc">Øving, opptak, gjennomlytting og ferdigstilling av podcasten.</div>
+    <div class="card-title">Hva loggene viste</div>
+    <div class="card-desc">De fire fasene bekreftet i empirien – med elevstemmer fra runde 2.</div>
     <div class="card-arrow">→</div>
   </a>
-  <a class="card" href="10_fase4.html" data-sec="2">
-    <div class="card-icon">💭</div>
+  <a class="card olive" href="laere-med-maskiner/10_variasjon.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
     <div class="card-num">10</div>
-    <div class="card-title">Fase 4: Refleksjon</div>
-    <div class="card-desc">Se tilbake – hva lærte dere? Bioteknologi, retorikk, samarbeid og KI.</div>
+    <div class="card-title">Variasjon i tilbakekomsten</div>
+    <div class="card-desc">Hvor tok de snarveien – og hva lærer det oss om hva lærere må legge til rette for?</div>
     <div class="card-arrow">→</div>
   </a>
 </div>
 
-<div class="section-label">Verktøy og tips</div>
-<div class="grid">
-  <a class="card" href="11_ki_i_prosjektet.html" data-sec="3">
-    <div class="card-icon">💡</div>
+<!-- FOR DEG -->
+<div class="section-label">For deg – hva kan du gjøre</div>
+<div class="grid g2">
+  <a class="card" href="laere-med-maskiner/11_designprinsipper.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
     <div class="card-num">11</div>
-    <div class="card-title">Bruk av KI i prosjektet</div>
-    <div class="card-desc">KI hjelper dere – men dere må alltid tenke kritisk.</div>
+    <div class="card-title">Tre designprinsipper</div>
+    <div class="card-desc">Konkrete grep du kan ta med inn i din egen undervisning.</div>
     <div class="card-arrow">→</div>
   </a>
-  <a class="card" href="12_prosesslogg.html" data-sec="3">
-    <div class="card-icon">📋</div>
+  <a class="card brown" href="laere-med-maskiner/12_takeaway.html">
+    <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
     <div class="card-num">12</div>
-    <div class="card-title">Prosesslogg</div>
-    <div class="card-desc">Gruppe- og individuell refleksjon i Forms etter hver økt og fase.</div>
-    <div class="card-arrow">→</div>
-  </a>
-  <a class="card" href="13_oversikt.html" data-sec="3">
-    <div class="card-icon">📊</div>
-    <div class="card-num">13</div>
-    <div class="card-title">Oversikt over arbeidsformene</div>
-    <div class="card-desc">Naturfag, norsk, samarbeid og kritisk KI-bruk – hva gjør dere når?</div>
-    <div class="card-arrow">→</div>
-  </a>
-  <a class="card" href="14_tips.html" data-sec="3">
-    <div class="card-icon">🌟</div>
-    <div class="card-num">14</div>
-    <div class="card-title">Tips og lykke til!</div>
-    <div class="card-desc">Snakk sammen, bruk egne ord, still spørsmål – lykke til!</div>
+    <div class="card-title">Hva tar du med hjem?</div>
+    <div class="card-desc">Det kritiske spørsmålet, tre konkrete tiltak og veien videre.</div>
     <div class="card-arrow">→</div>
   </a>
 </div>
 
-<footer>Å lære med maskiner · Et tverrfaglig prosjekt i norsk og naturfag</footer>
+<footer>Å lære med maskiner · Game-Up · Mari-Ann Letnes · NTNU · 2026</footer>
 </body>
 </html>
