@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slik strukturerte vi arbeidet · Å lære med maskiner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../slide-shared.css">
+</head>
+<body>
+<nav class="topnav">
+  <a class="home" href="../index.html">Å lære med maskiner</a>
+  <span class="sep">/</span>
+  <a>Slik strukturerte vi arbeidet</a>
+</nav>
+
+<div class="slide">
+  <div class="slide-num">05 · Designet i praksis</div>
+  <h1>Slik strukturerte vi arbeidet</h1>
+  <p style="color:var(--muted); font-size:.95rem; margin: -.5rem 0 2rem;">Klikk på en fase for å lese mer.</p>
+  <div class="phases-grid">
+    <div class="phase" onclick="toggle(1,this)">
+      <div class="phase-circle" style="border-color:var(--rust);">
+        <img src="../Bilder/FASE1.png" alt="Fase 1">
+      </div>
+      <div class="phase-label"><div class="num">Fase 1</div><div class="title">Utforske tema</div></div>
+    </div>
+    <div class="phase" onclick="toggle(2,this)">
+      <div class="phase-circle" style="border-color:var(--brown);">
+        <img src="../Bilder/FASE2.jpg" alt="Fase 2">
+      </div>
+      <div class="phase-label"><div class="num">Fase 2</div><div class="title">Idé og manus</div></div>
+    </div>
+    <div class="phase" onclick="toggle(3,this)">
+      <div class="phase-circle" style="border-color:var(--olive);">
+        <img src="../Bilder/FASE3.jpg" alt="Fase 3">
+      </div>
+      <div class="phase-label"><div class="num">Fase 3</div><div class="title">Produksjon</div></div>
+    </div>
+    <div class="phase" onclick="toggle(4,this)">
+      <div class="phase-circle" style="border-color:var(--charcoal);">
+        <img src="../Bilder/FASE4.jpg" alt="Fase 4">
+      </div>
+      <div class="phase-label"><div class="num">Fase 4</div><div class="title">Refleksjon</div></div>
+    </div>
+  </div>
+  <div class="detail" id="detail1">
+    <div class="detail-inner" style="border-color:var(--rust);">
+      <div class="agent-tag">🤖 KI-agent del 1 · Pakke ut oppgaven</div>
+      <h2 style="color:var(--rust);">Fase 1: Utforske tema = Fremmedgjøring</h2>
+      <p>Elevene møter et massivt fagstoff og en KI som gir svar de ikke kan lese rett opp. Bruddet oppstår: <em>«Den gir et godt begrunnet svar, men som kan være vanskelig å forstå.»</em> Fremmedgjøringen tvinger dem til å stoppe og ta publikumsperspektivet: Hvordan forklarer vi dette for en 13-åring?</p>
+    </div>
+  </div>
+  <div class="detail" id="detail2">
+    <div class="detail-inner" style="border-color:var(--brown);">
+      <div class="agent-tag">🤖 KI-agent del 2 · Lære, analysere og sortere</div>
+      <h2 style="color:var(--brown);">Fase 2: Idé og manus = Materialdialog</h2>
+      <p>Elevene kjemper med KI som materiale. De avleser, tolker og justerer. <em>«Vi bytter litt på svarene slik at det skal høres menneskelig ut.»</em> De ber om metaforer, faktasjekker mot NDLA og skolebøker. Dette er reflection-in-action – og det er her kortslutningen skjer hvis designet ikke holder.</p>
+    </div>
+  </div>
+  <div class="detail" id="detail3">
+    <div class="detail-inner" style="border-color:var(--olive);">
+      <div class="agent-tag">🤖 KI-agent del 3 · Gjennomføre</div>
+      <h2 style="color:var(--olive);">Fase 3: Produksjon = Meningsskaping</h2>
+      <p>KI-teksten må gjennom elevens kropp og stemme. <em>«Jeg øvde på manuset ved å lese det høyt, og spurte mamma om hun forstod. Jeg oppdaget at jeg måtte forklare noen fagord bedre.»</em> Produksjonskravet er det som gjør det umulig å stoppe i materialdialogen.</p>
+    </div>
+  </div>
+  <div class="detail" id="detail4">
+    <div class="detail-inner" style="border-color:var(--charcoal);">
+      <div class="agent-tag">🤖 KI-agent del 4 · Tilbakeblikk</div>
+      <h2>Fase 4: Refleksjon = Tilbakekomst</h2>
+      <p>Eleven speiler seg i det ferdige verket og tar eierskap. <em>«Jeg måtte virkelig sette meg inn i temaet. Det gjorde at jeg forstod fagstoffet bedre fordi jeg måtte forklare det på en måte som andre kan forstå.»</em> Subjektivering: Dette har vi skapt.</p>
+    </div>
+  </div>
+</div>
+<style>
+.phases-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; max-width:860px; margin:0 auto; padding:0 1.5rem; }
+.phase { display:flex; flex-direction:column; align-items:center; gap:.9rem; cursor:pointer; }
+.phase-circle { width:170px; height:170px; border-radius:50%; overflow:hidden; border:4px solid transparent; box-shadow:0 4px 16px rgba(0,0,0,.12); transition:transform .2s, box-shadow .2s; flex-shrink:0; }
+.phase-circle img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+.phase:hover .phase-circle, .phase.active .phase-circle { transform:scale(1.05); box-shadow:0 8px 28px rgba(0,0,0,.18); }
+.phase-label { text-align:center; }
+.phase-label .num { font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:.15rem; }
+.phase-label .title { font-family:'DM Serif Display',serif; font-size:1rem; color:var(--charcoal); line-height:1.2; }
+.detail { max-width:860px; margin:1.5rem auto 0; padding:0 1.5rem; display:none; }
+.detail.visible { display:block; }
+.detail-inner { background:white; border-radius:16px; padding:1.6rem 2rem; border-left:4px solid var(--rust); box-shadow:0 2px 12px rgba(0,0,0,.07); animation:fadeIn .2s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+.detail-inner h2 { font-family:'DM Serif Display',serif; font-size:1.2rem; margin-bottom:.7rem; }
+.detail-inner p { font-size:.95rem; line-height:1.7; color:#444; }
+.agent-tag { display:inline-block; background:var(--charcoal); color:#e8a090; font-size:.72rem; font-weight:600; border-radius:99px; padding:.25rem .8rem; margin-bottom:.8rem; }
+@media(max-width:700px){ .phases-grid{grid-template-columns:repeat(2,1fr);} .phase-circle{width:130px;height:130px;} }
+</style>
+<script>
+function toggle(n,btn){
+  const d=document.getElementById('detail'+n);
+  const v=d.classList.contains('visible');
+  document.querySelectorAll('.detail').forEach(x=>x.classList.remove('visible'));
+  document.querySelectorAll('.phase').forEach(x=>x.classList.remove('active'));
+  if(!v){d.classList.add('visible');btn.classList.add('active');setTimeout(()=>d.scrollIntoView({behavior:'smooth',block:'nearest'}),50);}
+}
+</script>
+
+<div class="footnav">
+  <a href="04_modellen.html">← Modellen</a>
+  <a class="home-link" href="../index.html">↑ Oversikt</a>
+  <a href="06_agenter.html">KI-agentene →</a>
+</div>
+</body></html>
